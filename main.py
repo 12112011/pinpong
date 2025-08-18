@@ -43,52 +43,66 @@ class Picture(Area):
 
 
 ball = Picture('ball.png', 160, 200, 50, 50)
-platform = Picture('platform.png', racket_x, racket_y, 100, 30)
+platform1 = Picture('platform.png', 420, 200, 30, 100)
+platform2 = Picture('platform.png', 50, 200, 30, 100)
 
 start_x = 5
 start_y = 5
 count = 9
-monsters = list()
-for j in range(3):
-    y = start_y + (55 * j)
-    x = start_x + (27.5 * j)  # и 27.5 по x
-    count = count - 1
 
-move_r = False
-move_l = False
+move_r1 = False
+move_l1 = False
+
+move_r2 = False
+move_l2 = False
 
 d_x = 3
 d_y = -3
 
 while not game_over:
     ball.fill()
-    platform.fill()
+    platform1.fill()
+    platform2.fill()
 
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_over = True
 
-        if event.type == pygame.KEYDOWN:
+        elif event.type == pygame.K_UP:
             if event.key == pygame.K_RIGHT:
-                move_r = True
+                move_r1 = True
             if event.key == pygame.K_LEFT:
-                move_l = True
+                move_l1 = True
 
-        if event.type == pygame.KEYUP:
+        elif event.type == pygame.K_DOWN:
             if event.key == pygame.K_RIGHT:
-                move_r = False
+                move_r1 = True
             if event.key == pygame.K_LEFT:
-                move_l = False
+                move_l1 = True
+
+        elif event.type == pygame.K_1:
+            if event.K == pygame.K_w:
+                move_r2 = False
+            if event.K == pygame.K_s:
+                move_l2 = False
+
+        elif event.type == pygame.K_2:
+            if event.K == pygame.K_w:
+                move_r2 = False
+            if event.K == pygame.K_s:
+                move_l2 = False
 
 
-    for m in monsters:
-        m.draw()
+
 
     ball.rect.x += d_x
     ball.rect.y += d_y
     
-    if ball.rect.colliderect(platform.rect):
+    if ball.rect.colliderect(platform1.rect):
+        d_y *= -1
+
+    if ball.rect.colliderect(platform2.rect):
         d_y *= -1
 
     if ball.rect.y <= 0:
@@ -100,16 +114,23 @@ while not game_over:
     if ball.rect.x <= 0:
         d_x *= -1
 
-    if ball.rect.y >= 500:
-        game_over = True  
+    if ball.rect.y >= 450:
+        d_y *= -1
 
-    if move_r:
-        platform.rect.x += 3
 
-    if move_l:
-        platform.rect.x -= 3
+    if move_r1:
+        platform1.rect.y += 3
+    if move_l1:
+        platform1.rect.y -= 3
 
-    platform.draw()
+    if move_r2:
+        platform2.rect.y += 3
+    if move_l2:
+        platform2.rect.y -= 3
+
+
+    platform1.draw()
+    platform2.draw()
     ball.draw()
 
     pygame.display.update()
