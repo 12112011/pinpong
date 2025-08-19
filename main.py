@@ -72,21 +72,20 @@ while not game_over:
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
                 move_r1 = True
-            
-        #     if event.key == pygame.K_LEFT:
-        #         move_l1 = True
+            if event.key == pygame.K_LEFT:
+                move_l1 = True
 
         # elif event.type == pygame.KEYDOWN:
         #     if event.key == pygame.K_RIGHT:
         #         move_r1 = True
-            # if event.key == pygame.K_LEFT:
-            #     move_l1 = True
+        #     if event.key == pygame.K_LEFT:
+        #         move_l1 = True
 
-        # elif event.type == pygame.K_1:
-        #     if event.K == pygame.K_w:
-        #         move_r2 = False
-        #     if event.K == pygame.K_s:
-        #         move_l2 = False
+        elif event.type == pygame.K_1:
+            if event.key == pygame.K_w:
+                move_r2 = True
+            if event.key == pygame.K_s:
+                move_l2 = True
 
         # elif event.type == pygame.K_2:
         #     if event.K == pygame.K_w:
@@ -123,8 +122,20 @@ while not game_over:
         platform1.rect.y += 10
         if platform1.rect.y > 10:
             move_r1 = False
-    # if move_l1:
-    #     platform1.rect.x -= 3
+    if move_l1:
+        platform1.rect.y -= 10
+        if platform1.rect.y > 10:
+            move_l1 = False
+
+    if move_r2:
+        platform2.rect.y += 10
+        if platform2.rect.y > 10:
+            move_l2 = False
+    if move_l2:
+        platform2.rect.y -= 10
+        if platform2.rect.y > 10:
+            move_l2 = False
+
 
     # if move_r2:
     #     platform2.rect.y += 3
